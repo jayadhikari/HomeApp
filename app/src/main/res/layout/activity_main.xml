@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jay_adhikariyahoo.homeapp.MainActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <Button
+        android:id="@+id/lightBtn"
+        android:layout_width="88dp"
+        android:layout_height="86dp"
+        android:background="@drawable/light"
+        android:onClick="lightClick"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/settingBtn"
+        app:layout_constraintRight_toRightOf="@+id/settingBtn"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/settingBtn" />
+
+    <Button
+        android:id="@+id/fanBtn"
+        android:layout_width="88dp"
+        android:layout_height="86dp"
+        android:background="@drawable/fan"
+        android:onClick="fanClick"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/tvBtn"
+        android:layout_marginStart="14dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/micBtn" />
+
+    <Button
+        android:id="@+id/settingBtn"
+        android:layout_width="88dp"
+        android:layout_height="0dp"
+        android:background="@drawable/setting"
+        android:onClick="settingClick"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvBtn"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/tvBtn"
+        app:layout_constraintLeft_toRightOf="@+id/tvBtn" />
+
+    <Button
+        android:id="@+id/micBtn"
+        android:layout_width="88dp"
+        android:layout_height="85dp"
+        android:background="@drawable/mic"
+        android:hapticFeedbackEnabled="false"
+        android:onClick="micClick"
+        android:layout_marginStart="53dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fanBtn"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/tvBtn"
+        android:layout_width="88dp"
+        android:layout_height="86dp"
+        android:background="@drawable/tv"
+        android:onClick="tvClick"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/myTextView"
+        app:layout_constraintRight_toRightOf="@+id/fanBtn"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintLeft_toLeftOf="@+id/fanBtn" />
+
+    <Button
+        android:id="@+id/searchBtn"
+        android:layout_width="39dp"
+        android:layout_height="40dp"
+        android:background="@drawable/search"
+        android:onClick="searchClick"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="85dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintLeft_toLeftOf="@+id/settingBtn"
+        android:layout_marginLeft="85dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/myTextView"
+        android:layout_width="338dp"
+        android:layout_height="49dp"
+        android:ems="10"
+        android:hint="Search"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        android:textColorLink="@android:color/black"
+        app:layout_constraintRight_toLeftOf="@+id/searchBtn"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintTop_toTopOf="@+id/searchBtn"
+        android:layout_marginRight="14dp"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteY="541dp" />
+
+
+</android.support.constraint.ConstraintLayout>
