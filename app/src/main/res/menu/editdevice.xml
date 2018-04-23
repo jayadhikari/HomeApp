@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Add Device"
+        android:id="@+id/addDev"></item>
+
+    <item android:title="Remove Device"
+        android:id="@+id/removeDev"></item>
+
+    <item android:title="Edit Device"
+        android:id="@+id/editDev"></item>
+
+</menu>
