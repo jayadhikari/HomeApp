@@ -32,15 +32,7 @@ public class addDevice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device);
 
-        try
-        {//initialise the database
-            SQLiteDatabase devDatabase = this.openOrCreateDatabase("DeviceData",MODE_PRIVATE, null);
-            devDatabase.execSQL("CREATE TABLE IF NOT EXISTS device (name VARCHAR, deviceID VARCHAR, channel VARCHAR, status VARCHAR, id INTEGER PRIMARY KEY )");
-        }catch(Exception e)
-        {
-            e.printStackTrace();
 
-        }
 
 
         ListView settingsListView = (ListView) findViewById(R.id.settingsListView);

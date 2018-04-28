@@ -10,18 +10,10 @@
 
     <ListView
         android:id="@+id/deviceList"
-        android:layout_width="0dp"
+        android:layout_width="395dp"
         android:layout_height="587dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginStart="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1" />
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
+
 
 </android.support.constraint.ConstraintLayout>

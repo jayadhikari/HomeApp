@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,9 +13,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
-public class deviceDetail extends AppCompatActivity {
+public class deviceDetail extends AppCompatActivity
+{
 
-    String name, devId, channel, devType;
+    String name, devID, channel, devType;
+    int listId = -1;
+
+
 
     public void cancelClick(View view)
     {
@@ -26,7 +31,6 @@ public class deviceDetail extends AppCompatActivity {
     public void saveClick(View view)
     {
         EditText nameText = (EditText) findViewById(R.id.editText);
-
         name = "";
 
         name = nameText.getText().toString();
@@ -47,8 +51,9 @@ public class deviceDetail extends AppCompatActivity {
             */
 
             Bundle bundle = new Bundle();
+            bundle.putInt("listId",listId);
             bundle.putString("name", name);
-            bundle.putString("id", devId);
+            bundle.putString("id", devID);
             bundle.putString("ch", channel);
             bundle.putString("type", devType);
             intent.putExtras(bundle);
@@ -72,23 +77,60 @@ public class deviceDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_detail);
 
+        Log.i("Device Detail", "in on create...");
 
+
+         name = "";
+         devID = "";
+         channel = "";
+         devType = "";
+
+        //get intent and bundle data if any passed from previous activity
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if(extras != null)//if something passed from prev activity
+        {
+            listId = extras.getInt("listId");
+            name = extras.getString("name");
+            devID = extras.getString("id");
+            channel = extras.getString("ch");
+            devType = extras.getString("type");
+
+            Log.i("device detail", String.valueOf(listId));
+            Log.i("device detail", name);
+            Log.i("device detail", devID);
+            Log.i("device detail", channel);
+            Log.i("device detail", devType);
+
+            EditText nameText = (EditText) findViewById(R.id.editText);
+
+            nameText.setText(name);
+        }
 
         deviceIDSpinner = (Spinner) findViewById(R.id.deviceIdSpinner);
         adapterDeviceIDSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,deviceIDSpinnerList);
 
         deviceIDSpinner.setAdapter(adapterDeviceIDSpinner);//set adapter to spinner
 
-        deviceIDSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+        deviceIDSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
 
                //implement this
-                devId = deviceIDSpinnerList[position];
+                devID = deviceIDSpinnerList[position];
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                if(listId != -1)
+                {
+                    Log.i("spinner 1","nothing selected");
+                }
 
             }
         });
@@ -98,7 +140,8 @@ public class deviceDetail extends AppCompatActivity {
 
         channelSpinner.setAdapter(adapterChannelSpinner);//set adapter to spinner
 
-        channelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        channelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -117,7 +160,8 @@ public class deviceDetail extends AppCompatActivity {
 
         devTypeSpinner.setAdapter(adapterDevTypeSpinner);//set adapter to spinner
 
-        devTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        devTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -130,6 +174,17 @@ public class deviceDetail extends AppCompatActivity {
 
             }
         });
+
+        if(listId != -1) {
+            int spinnerPos = adapterDeviceIDSpinner.getPosition(devID);
+            deviceIDSpinner.setSelection(spinnerPos);
+
+            spinnerPos = adapterChannelSpinner.getPosition(channel);
+            channelSpinner.setSelection(spinnerPos);
+
+            spinnerPos = adapterDevTypeSpinner.getPosition(devType);
+            devTypeSpinner.setSelection(spinnerPos);
+        }
 
     }
 }
