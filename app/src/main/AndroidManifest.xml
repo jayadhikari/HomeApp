@@ -18,9 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addDevice" />
-        <activity android:name=".EditDeviceList" />
-        <activity android:name=".deviceDetail"></activity>
+        <activity android:name=".addDevice"
+            android:label="@string/setting"/>
+        <activity android:name=".EditDeviceList"
+            android:label="@string/device"/>
+        <activity android:name=".deviceDetail"
+            android:label="@string/edit"></activity>
     </application>
 
 </manifest>
