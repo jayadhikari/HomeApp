@@ -11,19 +11,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".splashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addDevice"
-            android:label="@string/setting"/>
-        <activity android:name=".EditDeviceList"
-            android:label="@string/device"/>
-        <activity android:name=".deviceDetail"
-            android:label="@string/edit"></activity>
+
+        <activity
+            android:name=".addDevice"
+            android:label="@string/setting"
+            android:theme="@style/ActionTheme"/>
+        <activity
+            android:name=".EditDeviceList"
+            android:label="@string/device"
+            android:theme="@style/ActionTheme"/>
+        <activity
+            android:name=".deviceDetail"
+            android:label="@string/edit"
+            android:theme="@style/ActionTheme"/>
+
+        <activity android:name=".MainActivity"
+            android:theme="@style/ActionTheme">
+
+        </activity>
     </application>
 
 </manifest>
