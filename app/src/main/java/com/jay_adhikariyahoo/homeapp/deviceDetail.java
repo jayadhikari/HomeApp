@@ -30,6 +30,7 @@ public class deviceDetail extends AppCompatActivity
     Button fromBtn,toBtn;
     TextView fromTimeTv, toTimeTv;
 
+
     void displayTime(int fromHr,int fromMin,int toHr, int toMin,int dialog)
     {
         String displayMin,displayHr;
@@ -219,18 +220,33 @@ public class deviceDetail extends AppCompatActivity
             devID = extras.getString("id");
             channel = extras.getString("ch");
             devType = extras.getString("type");
+
+            double toTime = (double) extras.getInt("toTime")/60;
+            double fromTime = (double) extras.getInt("fromTime")/60;
+
+
+
+
             hourTo = extras.getInt("toTime")/60;
-            minuteTo = (int) (0.6*(extras.getInt("toTime")%60));
+
+            toTime -= hourTo;
+            minuteTo = (int) (toTime * 60);
+
+
             hourFrom = extras.getInt("fromTime")/60;
-            minuteFrom = (int) (0.6*(extras.getInt("fromTime")%60));
+            fromTime -= hourFrom;
+
+            minuteFrom = (int) (fromTime * 60);
 
             Log.i("device detail list id", String.valueOf(listId));
             Log.i("device detail name", name);
             Log.i("device detail devID", devID);
             Log.i("device detail channel", channel);
             Log.i("device detail dev Type", devType);
-
-
+            Log.i("device detail to Time",String.valueOf(toTime));
+            Log.i("device detail from Time",String.valueOf(fromTime));
+            Log.i("device detail tmin Time",String.valueOf(minuteTo));
+            Log.i("device detail fmin Time",String.valueOf(minuteFrom));
 
             EditText nameText = (EditText) findViewById(R.id.editText);
 
