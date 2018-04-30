@@ -1,5 +1,7 @@
 package com.jay_adhikariyahoo.homeapp;
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 
@@ -19,6 +24,121 @@ public class deviceDetail extends AppCompatActivity
     String name, devID, channel, devType;
     int listId = -1;
 
+    int hourFrom=0,hourTo=24;
+    int minuteFrom=0,minuteTo=0;
+    static final int DIALOG_ID_FROM =0,DIALOG_ID_TO=1;
+    Button fromBtn,toBtn;
+    TextView fromTimeTv, toTimeTv;
+
+    void displayTime(int fromHr,int fromMin,int toHr, int toMin,int dialog)
+    {
+        String displayMin,displayHr;
+        int hourT,minT;
+
+        if(dialog == DIALOG_ID_TO) {
+            hourT = toHr; minT = toMin;
+        }
+        else{
+            hourT = fromHr;minT = fromMin;
+        }
+        displayMin = String.valueOf(minT);
+        displayHr = String.valueOf(hourT);
+
+        if(((toHr*60)+toMin) < ((fromHr*60)+fromMin))
+        {
+            Toast.makeText(deviceDetail.this,"To Time Should Be Greater Than From Time",Toast.LENGTH_LONG).show();
+
+            if(fromMin <10)
+                displayMin = "0"+fromMin;
+            if(fromHr >=12)
+            {
+                if(fromHr == 12)
+                    displayHr = String.valueOf(12);
+                else
+                    displayHr = String.valueOf(fromHr - 12);
+                displayMin += " PM";
+            }
+            else
+                displayMin +=" AM";
+
+            if(dialog == DIALOG_ID_TO)
+                toTimeTv.setText(displayHr+":"+displayMin);
+        }
+        else
+        {
+            if(minT <10)
+                displayMin = "0"+minT;
+            if(hourT >=12)
+            {
+                if(hourT == 12)
+                    displayHr = String.valueOf(12);
+                else
+                    displayHr = String.valueOf(hourT - 12);
+
+                displayMin += " PM";
+            }
+            else
+                displayMin += " AM";
+
+            if(dialog == DIALOG_ID_TO)
+                toTimeTv.setText(displayHr + ":" + displayMin);
+            else
+                fromTimeTv.setText(displayHr + ":" + displayMin);
+        }
+
+    }
+
+    public void showTimePickerDialog()
+    {
+        fromTimeTv = (TextView) findViewById(R.id.fromTimeTv);
+        toTimeTv = (TextView) findViewById(R.id.toTimeTv);
+
+        fromBtn = (Button) findViewById(R.id.fromBtn);
+        toBtn = (Button) findViewById(R.id.toBtn);
+
+        fromBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DIALOG_ID_FROM);
+            }
+        });
+        toBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(DIALOG_ID_TO);
+            }
+        });
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id)
+    {
+        if(id == DIALOG_ID_FROM)
+            return new TimePickerDialog(deviceDetail.this,kTimePickerListener,hourFrom,minuteFrom,false);
+        else if(id == DIALOG_ID_TO)
+            return new TimePickerDialog(deviceDetail.this,kTimePickerListener2,hourTo,minuteTo,false);
+
+        return null;
+    }
+    protected TimePickerDialog.OnTimeSetListener kTimePickerListener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            hourFrom = hourOfDay;
+            minuteFrom = minute;
+            displayTime(hourFrom, minuteFrom,hourTo, minuteTo,DIALOG_ID_FROM);
+
+        }
+    };
+    protected TimePickerDialog.OnTimeSetListener kTimePickerListener2 = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+            hourTo = hourOfDay;
+            minuteTo = minute;
+            displayTime(hourFrom, minuteFrom,hourTo, minuteTo,DIALOG_ID_TO);
+        }
+    };
 
 
     public void cancelClick(View view)
@@ -51,6 +171,8 @@ public class deviceDetail extends AppCompatActivity
             */
 
             Bundle bundle = new Bundle();
+            bundle.putInt("fromTime",((60*hourFrom)+minuteFrom));
+            bundle.putInt("toTime",((60*hourTo)+minuteTo));
             bundle.putInt("listId",listId);
             bundle.putString("name", name);
             bundle.putString("id", devID);
@@ -69,6 +191,7 @@ public class deviceDetail extends AppCompatActivity
     String channelSpinnerList[] = {"0","1","2","3"};
     String devTypeSpinnerList[] = {"Light","FanAC","TVFridge","Others"};
 
+
     ArrayAdapter<String> adapterDeviceIDSpinner,adapterChannelSpinner,adapterDevTypeSpinner;
 
     @Override
@@ -78,6 +201,7 @@ public class deviceDetail extends AppCompatActivity
         setContentView(R.layout.activity_device_detail);
 
         Log.i("Device Detail", "in on create...");
+        showTimePickerDialog();//time picker method
 
 
          name = "";
@@ -95,12 +219,18 @@ public class deviceDetail extends AppCompatActivity
             devID = extras.getString("id");
             channel = extras.getString("ch");
             devType = extras.getString("type");
+            hourTo = extras.getInt("toTime")/60;
+            minuteTo = (int) (0.6*(extras.getInt("toTime")%60));
+            hourFrom = extras.getInt("fromTime")/60;
+            minuteFrom = (int) (0.6*(extras.getInt("fromTime")%60));
 
-            Log.i("device detail", String.valueOf(listId));
-            Log.i("device detail", name);
-            Log.i("device detail", devID);
-            Log.i("device detail", channel);
-            Log.i("device detail", devType);
+            Log.i("device detail list id", String.valueOf(listId));
+            Log.i("device detail name", name);
+            Log.i("device detail devID", devID);
+            Log.i("device detail channel", channel);
+            Log.i("device detail dev Type", devType);
+
+
 
             EditText nameText = (EditText) findViewById(R.id.editText);
 
@@ -175,7 +305,8 @@ public class deviceDetail extends AppCompatActivity
             }
         });
 
-        if(listId != -1) {
+        if(listId != -1)
+        {
             int spinnerPos = adapterDeviceIDSpinner.getPosition(devID);
             deviceIDSpinner.setSelection(spinnerPos);
 
@@ -184,6 +315,9 @@ public class deviceDetail extends AppCompatActivity
 
             spinnerPos = adapterDevTypeSpinner.getPosition(devType);
             devTypeSpinner.setSelection(spinnerPos);
+
+            displayTime(hourFrom, minuteFrom,hourTo, minuteTo,DIALOG_ID_FROM);
+            displayTime(hourFrom, minuteFrom,hourTo, minuteTo,DIALOG_ID_TO);
         }
 
     }
