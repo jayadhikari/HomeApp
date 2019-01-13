@@ -173,7 +173,9 @@ public class deviceDetail extends AppCompatActivity
 
             Bundle bundle = new Bundle();
             bundle.putInt("fromTime",((60*hourFrom)+minuteFrom));
+            Log.i("deviceDetail-fromTime", String.valueOf((60*hourFrom)+minuteFrom));
             bundle.putInt("toTime",((60*hourTo)+minuteTo));
+            Log.i("deviceDetail-toTime", String.valueOf((60*hourTo)+minuteTo));
             bundle.putInt("listId",listId);
             bundle.putString("name", name);
             bundle.putString("id", devID);

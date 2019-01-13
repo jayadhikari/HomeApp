@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("info","light button pressed");
         DisplayMesg("light button pressed");
 
-        HttpRequest("http://192.168.0.103:80/rf?D=4&t=200&id=28015&on=1&channel=1");
+        HttpRequest("http://192.168.1.3:80/rf?D=4&t=200&id=28015&on=1&channel=1");
 
     }
     public void fanClick(View view)
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("info","fan button pressed");
         DisplayMesg("fan button pressed");
 
-        HttpRequest("http://192.168.0.103:80/rf?D=4&t=200&id=28015&on=1&channel=2");
+        HttpRequest("http://192.168.1.3:80/rf?D=4&t=200&id=28015&on=1&channel=2");
     }
     public void tvClick(View view)
     {

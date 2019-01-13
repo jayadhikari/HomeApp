@@ -217,11 +217,15 @@ public class EditDeviceList extends AppCompatActivity {
                     int chIndex = c.getColumnIndex("channel");
                     int statusIndex = c.getColumnIndex("status");
                     int typeIndex = c.getColumnIndex("devType");
+                    int toTimeIndex= c.getColumnIndex("toTime");
+                    int fromTimeIndex = c.getColumnIndex("fromTime");
 
                     name = c.getString(nameIndex);
                     devID = c.getString(devIdIndex);
                     channel = c.getString(chIndex);
                     devType = c.getString(typeIndex);
+                    toTime = c.getInt(toTimeIndex);
+                    fromTime = c.getInt(fromTimeIndex);
 
                     Log.i("shortClick", String.valueOf(idIndex));
                     Log.i("shortClick", name);
@@ -237,7 +241,8 @@ public class EditDeviceList extends AppCompatActivity {
 
                 }
                  MainActivity mainActivity= new MainActivity();
-                mainActivity.HttpRequest("http://192.168.0.103:80/rf?D=4&t=200&id="+devID+"&on=1&channel="+channel);
+                //mainActivity.HttpRequest("http://192.168.0.103:80/rf?D=4&t=200&id="+devID+"&on=1&channel="+channel);
+                mainActivity.HttpRequest("http://192.168.1.3:80/time?D=4&t=200&id="+devID+"&on=1&channel="+channel+"&timeTo="+toTime+"&timeFr="+fromTime);
 
             }
         });
